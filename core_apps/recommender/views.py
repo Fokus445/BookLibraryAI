@@ -2,8 +2,13 @@ import joblib
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
+from rest_framework import filters, generics, permissions, status
 
+from .models import Book
 
+import os
+print(os. listdir())
+print(os. getcwd())
 model_filename = 'cosine_similarity_model.pkl'
 
 # Load the model from the file
@@ -33,3 +38,7 @@ def recommend(book_name):
 print(recommend('Harry Potter and the Chamber of Secrets (Book 2)'))
 
 print()
+
+
+class RecommendBooksView(generics.ListAPIView):
+    queryset = Book.objects.all()

@@ -16,4 +16,4 @@ EMAIL_HOST = env("EMAIL_HOST", default="mailhog")
 EMAIL_PORT = env("EMAIL_PORT")
 DEFAULT_FROM_EMAIL = "support@edwin.com"
 DOMAIN = env("DOMAIN")
-SITE_NAME = "Authors Haven"
+SITE_NAME = "Book Recommender"
