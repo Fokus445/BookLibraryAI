@@ -3,12 +3,16 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from rest_framework import filters, generics, permissions, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated,  AllowAny
 
 from .models import Book
+from .serializers import RecommendBooksSerializer
 
-import os
-print(os. listdir())
-print(os. getcwd())
+
+
+
 model_filename = 'cosine_similarity_model.pkl'
 
 # Load the model from the file
@@ -40,5 +44,14 @@ print(recommend('Harry Potter and the Chamber of Secrets (Book 2)'))
 print()
 
 
-class RecommendBooksView(generics.ListAPIView):
-    queryset = Book.objects.all()
+class RecommendBooksView(APIView):
+    serializer_class = RecommendBooksSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request, format=None):
+        """Return recommended books based on liked book"""
+        serializer = RecommendBooksSerializer(data=request.data)
+        if serializer.is_valid():
+            recomended_books = recommend(serializer.validated_data['title'])
+            return Response({"data":recomended_books}, status=status.HTTP_200_OK)
+    
