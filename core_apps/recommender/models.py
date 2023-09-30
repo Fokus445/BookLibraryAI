@@ -14,7 +14,7 @@ class Author(models.Model):
         ordering = ["first_name","last_name"]
 
     def __str__(self):
-        return self.first_name + self.last_name
+        return f"{self.first_name} {self.last_name}"
     
 
 class Publisher(models.Model):
@@ -34,7 +34,7 @@ class Book(models.Model):
     author = models.ForeignKey(Author, related_name="books",verbose_name=_("author"),
         on_delete=models.CASCADE)
     publisher = models.ForeignKey(Publisher, related_name="published_books", 
-        verbose_name=_("publisher"), on_delete=models.DO_NOTHING)
+        verbose_name=_("publisher"), on_delete=models.DO_NOTHING, blank=True)
     release_date = models.DateTimeField(verbose_name=_("release date"))
     cover_image = models.CharField(max_length=200)
 
