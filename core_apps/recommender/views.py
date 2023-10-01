@@ -8,8 +8,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated,  AllowAny
 
 from .models import Book
-from .serializers import RecommendBooksSerializer
+from .serializers import RecommendBooksSerializer, DisplayBooksSerializer
 
+from django.core import serializers
 
 
 
@@ -20,7 +21,6 @@ book_pivot = joblib.load(model_filename)
 
 similarity_scores = cosine_similarity(book_pivot)
 
-books = pd.read_csv('data/Books.csv')
 
 def recommend(book_name):
     # index fetch
@@ -29,19 +29,11 @@ def recommend(book_name):
     
     data = []
     for i in similar_items:
-        item = []
-        temp_df = books[books['Book-Title'] == book_pivot.index[i[0]]]
-        item.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Title'].values))
-        item.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Author'].values))
-        item.extend(list(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].values))
-        
-        data.append(item)
-    
+        data.append(Book.objects.filter(title=book_pivot.index[i[0]]))
+
+
     return data
 
-print(recommend('Harry Potter and the Chamber of Secrets (Book 2)'))
-
-print()
 
 
 class RecommendBooksView(APIView):
@@ -52,6 +44,7 @@ class RecommendBooksView(APIView):
         """Return recommended books based on liked book"""
         serializer = RecommendBooksSerializer(data=request.data)
         if serializer.is_valid():
-            recomended_books = recommend(serializer.validated_data['title'])
-            return Response({"data":recomended_books}, status=status.HTTP_200_OK)
+            recommended_books = recommend(serializer.validated_data['title'])
+            serializer = DisplayBooksSerializer(recommended_books, many=True)
+            return Response({"data": serializer.data}, status=status.HTTP_200_OK)
     
