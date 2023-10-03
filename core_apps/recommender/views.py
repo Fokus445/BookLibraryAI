@@ -22,29 +22,42 @@ book_pivot = joblib.load(model_filename)
 similarity_scores = cosine_similarity(book_pivot)
 
 
-def recommend(book_name):
-    # index fetch
-    index = np.where(book_pivot.index==book_name)[0][0]
-    similar_items = sorted(list(enumerate(similarity_scores[index])),key=lambda x:x[1],reverse=True)[1:5]
-    
-    data = []
-    for i in similar_items:
-        data.append(Book.objects.filter(title=book_pivot.index[i[0]]))
-
-
-    return data
-
-
 
 class RecommendBooksView(APIView):
     serializer_class = RecommendBooksSerializer
     permission_classes = [AllowAny]
 
+    def recommend(self, book_name):
+        # index fetch
+        index = np.where(book_pivot.index==book_name)[0][0]
+        similar_items = sorted(list(enumerate(similarity_scores[index])),key=lambda x:x[1],reverse=True)[1:5]
+        
+        data = []
+        for i in similar_items:
+            data.append(Book.objects.filter(title=book_pivot.index[i[0]]))
+
+        return data
+
     def post(self, request, format=None):
-        """Return recommended books based on liked book"""
+        """Return recommended books     based on liked book"""
         serializer = RecommendBooksSerializer(data=request.data)
-        if serializer.is_valid():
-            recommended_books = recommend(serializer.validated_data['title'])
-            serializer = DisplayBooksSerializer(recommended_books, many=True)
-            return Response({"data": serializer.data}, status=status.HTTP_200_OK)
+        if serializer.is_valid(): 
+
+            recommended_books = self.recommend(serializer.validated_data['title'])
+            
+        books_data = []
+
+        for queryset in recommended_books:
+            books_data.extend(list(queryset))
+
+        # Serialize the extracted objects using your serializer
+        serializer = DisplayBooksSerializer(books_data, many=True)
+
+        return Response({'books': serializer.data}, status=status.HTTP_200_OK)
+    
+
+class DisplayBooksView(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = DisplayBooksSerializer
+    permission_classes = [AllowAny]
     
