@@ -33,7 +33,7 @@ urlpatterns = [
         PasswordResetConfirmView.as_view(),
         name="password_reset_confirm",
     ),
-    path("api/v1/recommend/", include("core_apps.recommender.urls")),
+    path("api/v1/", include("core_apps.recommender.urls")),
 ]
 
 
