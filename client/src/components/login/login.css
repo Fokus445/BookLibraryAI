@@ -1,0 +1,21 @@
+
+.modal {
+    height: 25vh;
+    width: 25vw;
+}
+
+.input-email {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 5px;
+}
+
+.input-password {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.btn-submit {
+    padding: 10px 40px;
+}

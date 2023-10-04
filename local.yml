@@ -23,6 +23,21 @@ services:
         networks:
             - books_api
 
+    
+    client:
+        build:
+            context: ./client
+            dockerfile: ./docker/dev/Dockerfile
+        restart: on-failure
+        environment:
+            - WATCHPACK_POLLING=true
+        volumes:
+            - ./client:/app
+            - /app/node_modules
+        ports:
+            - "3000:3000"
+
+
     postgres:
         build:
             context: .
