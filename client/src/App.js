@@ -1,25 +1,41 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+
+
+import { Footer, Header } from './containers';
+import { Navbar } from './components';
+
 import './App.css';
 
-function App() {
+import axios from "axios";
+import { Library } from './containers';
+
+export const setAuthToken = token => {
+  if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
+  else
+      delete axios.defaults.headers.common["Authorization"];
+}
+
+const App = () => {
+  const [loggedIn, setLoggedIn] = useState(false); // State to track authentication status
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLoggedIn(true); // If a token is present, set loggedIn to true
+      setAuthToken(token);
+    }
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar loggedIn={loggedIn} />
+      <Header />
+      <Library />
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;
