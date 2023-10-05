@@ -6,9 +6,10 @@ from rest_framework import filters, generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated,  AllowAny
+from rest_framework.pagination import PageNumberPagination
 
 from .models import Book
-from .serializers import RecommendBooksSerializer, DisplayBooksSerializer
+from .serializers import RecommendBooksSerializer, DisplayBooksSerializer, BookDetailSerializer
 
 from django.core import serializers
 
@@ -26,6 +27,7 @@ similarity_scores = cosine_similarity(book_pivot)
 class RecommendBooksView(APIView):
     serializer_class = RecommendBooksSerializer
     permission_classes = [AllowAny]
+    pagination_class = PageNumberPagination
 
     def recommend(self, book_name):
         # index fetch
@@ -61,3 +63,11 @@ class DisplayBooksView(generics.ListAPIView):
     serializer_class = DisplayBooksSerializer
     permission_classes = [AllowAny]
     
+
+class BookDetailView(generics.RetrieveAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookDetailSerializer
+    lookup_field = 'isbn'
+    permission_classes = [AllowAny]
+
+

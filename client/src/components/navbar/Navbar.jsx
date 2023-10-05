@@ -13,10 +13,10 @@ const Navbar = ({ loggedIn }) => {
           <p className="logo-text">Book Recommender</p>
         </div>
         <div className="navbar-links_container">
-          <p><a href="#home">Home</a></p>
-          <p><a href="#wgpt3">Library</a></p>
-          <p><a href="#possibility">Features</a></p>
-          <p><a href="#blog">Blog</a></p>
+          <p><a href="/">Home</a></p>
+          <p><a href="#">Library</a></p>
+          <p><a href="#">Features</a></p>
+          <p><a href="#">Blog</a></p>
         </div>
       </div>
       {!loggedIn && (
