@@ -1,13 +1,15 @@
 import axios from "axios";
 
-const API_URL = "/auth";
+const API_URL = "/api/v1/auth";
 
-const signup = (email, password, re_password) => {
+const signup = (email, first_name, last_name, password1, password2) => {
   return axios
-    .post(API_URL + "/users/", {
+    .post(API_URL + "/registration/", {
       email,
-      password,
-      re_password
+      first_name,
+      last_name,
+      password1,
+      password2
     })
     .then((response) => {
       if (response.status === 201) {
