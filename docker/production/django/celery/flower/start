@@ -7,7 +7,7 @@ set -o nounset
 echo 'STARTING START'
 
 worker_ready(){
-    celery -A authors_api.celery inspect ping
+    celery -A books_api.celery inspect ping
 }
 
 until worker_ready; do
@@ -20,7 +20,7 @@ done
 echo 'Celery workers are available and ready!... :)'
 
 exec celery \
-    -A authors_api.celery \
+    -A books_api.celery \
     -b "${CELERY_BROKER}" \
     flower \
     --basic_auth="${CELERY_FLOWER_USER}:${CELERY_FLOWER_***REMOVED***}"
