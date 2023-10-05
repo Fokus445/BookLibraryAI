@@ -36,6 +36,8 @@ services:
             - /app/node_modules
         ports:
             - "3000:3000"
+        networks:
+            - books_api
 
 
     postgres:

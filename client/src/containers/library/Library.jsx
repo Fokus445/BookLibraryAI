@@ -9,7 +9,7 @@ function Library() {
 
     useEffect(() => {
       // Replace 'apiUrl' with the actual URL of your API
-      axios.get('/books')
+      axios.get('/api/v1/books/')
         .then((response) => response.json())
         .then((data) => setBooks(data))
         .catch((error) => console.error('Error fetching data:', error));
