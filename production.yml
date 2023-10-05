@@ -39,13 +39,8 @@ services:
         build:
             context: ./client
             dockerfile: ./docker/production/Dockerfile
-        restart: on-failure
         environment:
-            - WATCHPACK_POLLING=true
-        volumes:
-            - node_modules:/usr/app/node_modules
-        ports:
-            - "3000:3000"
+            - NODE_ENV=production
         networks:
             - reverseproxy_nw
 
