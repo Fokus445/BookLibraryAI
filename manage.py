@@ -7,7 +7,7 @@ import sys
 def main():
     """Run ***REMOVED***istrative tasks."""
     # TODO: change in production
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "books_api.settings.local")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "books_api.settings.production")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
