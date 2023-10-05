@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Switch } from 'react-router-dom';
 
 
-import { Footer, Header } from './containers';
+
+import { BookDetails, Footer, Header, Library} from './containers';
 import { Navbar } from './components';
 
 import './App.css';
 
 import axios from "axios";
-import { Library } from './containers';
+
+
+
 
 export const setAuthToken = token => {
   if (token) {
@@ -29,12 +33,18 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
-      <Navbar loggedIn={loggedIn} />
-      <Header />
-      <Library />
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar loggedIn={loggedIn} />
+        <Header />
+          <Routes>
+            <Route path="/" element={<Library/>} />
+            <Route path="/book/:isbn" element={<BookDetails/>} />
+          </Routes>
+
+        <Footer />
+      </div>
+    </Router>
   );
 };
 

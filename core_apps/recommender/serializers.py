@@ -10,6 +10,24 @@ class RecommendBooksSerializer(serializers.HyperlinkedModelSerializer):
 
 class DisplayBooksSerializer(serializers.ModelSerializer):
     author_full_name = serializers.SerializerMethodField()
+     
+    class Meta:
+        model = Book
+        fields = [
+            'isbn',
+            'title',
+            'author',
+            'cover_image',
+            'author_full_name',
+        ]
+    
+    def get_author_full_name(self, obj):
+        return obj.author.full_name()
+    
+
+
+class BookDetailSerializer(serializers.ModelSerializer):
+    author_full_name = serializers.SerializerMethodField()
     publisher_name = serializers.SerializerMethodField()
     
     class Meta:
@@ -30,3 +48,6 @@ class DisplayBooksSerializer(serializers.ModelSerializer):
 
     def get_publisher_name(self, obj):
         return obj.publisher.name
+    
+
+

@@ -1,0 +1,93 @@
+/* CSS for BookDetails.js */
+
+.book-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.book-info {
+    display: flex;
+    align-items: center;
+}
+
+.bookDetails__cover_image {
+    max-width: 200px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.book-details-text {
+    text-align: left;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.recommended-books {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.recommended-books h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.recommended-books-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.recommended-book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none; /* Remove default hyperlink underline */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: scale 0.1s ease-in-out; /* Add a smooth transition */
+}
+
+/* Hover effect */
+.recommended-book:hover {
+    scale: 1.05; /* Change to your desired hover background color */
+}
+
+.recommended-book__cover_image {
+    max-width: 100%;
+    height: 200px;
+}
+
+/* Style for the Return to Library button */
+.return-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.return-button:hover {
+    background-color: #0056b3;
+}
+
+/* Add more styles as needed */
+.medium-margin-top {
+    margin-top: 50px;
+}
