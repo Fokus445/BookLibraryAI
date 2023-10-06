@@ -3,7 +3,7 @@
 .coverage*
 .DS_Store
 staticfiles
-
+.envs/*
 !.envs/.local/
 
 # Byte-compiled / optimized / DLL files
