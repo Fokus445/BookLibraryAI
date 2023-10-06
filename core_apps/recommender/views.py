@@ -62,6 +62,10 @@ class DisplayBooksView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = DisplayBooksSerializer
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        query = self.request.query_params.get('query', '')
+        return Book.objects.filter(title__icontains=query)
     
 
 class BookDetailView(generics.RetrieveAPIView):
