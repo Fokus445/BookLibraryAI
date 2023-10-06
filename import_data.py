@@ -4,7 +4,7 @@ import django
 
 
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'books_api.settings.production'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'books_api.settings.local'
 django.setup()
 
 from core_apps.recommender.models import Author, Publisher, Book
