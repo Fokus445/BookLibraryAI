@@ -24,7 +24,7 @@ const signup = (email, first_name, last_name, password1, password2) => {
 
 const login = (email, password) => {
   return axios
-    .post(API_URL + "/jwt/create", {
+    .post(API_URL + "/api/v1/login/", {
       email,
       password,
     })
