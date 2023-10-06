@@ -6,13 +6,6 @@ import './login.css'
 
 import axios from 'axios';
 
-export const setAuthToken = token => {
-  if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  }
-  else
-      delete axios.defaults.headers.common["Authorization"];
-}
 
 
 const Login = () => {
@@ -33,11 +26,6 @@ const Login = () => {
         response => {
           console.log("Success login")
           console.log(response.access)
-          const token = response.access;
-
-          localStorage.setItem("token", token);
-
-          setAuthToken(token);
 
           window.location.href = "/"
         /*navigate("");

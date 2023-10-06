@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import './navbar.css';
-import { Login, Signup } from '../';
+import { Login, Signup, Logout } from '../';
 
 const Navbar = ({ loggedIn }) => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -19,7 +19,7 @@ const Navbar = ({ loggedIn }) => {
           <p><a href="#">Blog</a></p>
         </div>
       </div>
-      {!loggedIn && (
+      {!loggedIn ? (
         <div className="navbar-sign">
           <div className="login-btn">
             <Login/>
@@ -27,9 +27,13 @@ const Navbar = ({ loggedIn }) => {
           <div className="signin-btn">
             <Signup/>
           </div>
-         
         </div>
-      )}
+      ) : (<div className="navbar-sign">
+          <div className="signin-btn">
+            <Logout/>
+          </div></div>)
+
+      }
       <div className="navbar-menu">
         {toggleMenu ? (
           <RiCloseLine color="#fff" size={27} onClick={() => setToggleMenu(false)} />
