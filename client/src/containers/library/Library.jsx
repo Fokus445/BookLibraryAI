@@ -25,10 +25,42 @@ const Library = () => {
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage)
     }
+
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        try {
+          const response = await axios.get(`/api/v1/books/?query=${searchQuery}`);
+          setSearchResults(response.data);
+        } catch (error) {
+          console.error('Error searching for books:', error);
+        }
+      };
+
+    
     
 
     return (
         <div className='library'>
+            <form onSubmit={handleSearch}>
+                <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={handleInputChange}
+                />
+                <button type="submit">Search</button>
+            </form>
+            <ul>
+                {searchResults.map((book, index) => (
+                <li key={index} className='book'>
+                <Link to={`/book/${book.isbn}`}>
+                    <img className="book__cover_image" src={book.cover_image} alt={`Cover for ${book.title}`} />
+                    <h2 className='book__title'>{book.title}</h2>
+                    <p className='book__author'>Author: {book.author_full_name}</p>
+                </Link>
+            </li>
+                ))}
+            </ul>
         {/* Pagination controls */}
         <button
             className="library-button" // Apply the button class
