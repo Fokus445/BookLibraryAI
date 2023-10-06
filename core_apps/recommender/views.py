@@ -27,7 +27,6 @@ similarity_scores = cosine_similarity(book_pivot)
 class RecommendBooksView(APIView):
     serializer_class = RecommendBooksSerializer
     permission_classes = [AllowAny]
-    pagination_class = PageNumberPagination
 
     def recommend(self, book_name):
         # index fetch
@@ -62,6 +61,7 @@ class DisplayBooksView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = DisplayBooksSerializer
     permission_classes = [AllowAny]
+    pagination_class = PageNumberPagination
 
     def get_queryset(self):
         query = self.request.query_params.get('query', '')
