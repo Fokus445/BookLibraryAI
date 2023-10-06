@@ -1,0 +1,42 @@
+
+.modal {
+    height: 50vh;
+    width: 10vw;
+}
+
+.input-email {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 5px;
+}
+
+.input-password {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.btn-submit {
+    padding: 10px 40px;
+}
+
+.react-responsive-modal-modal {
+    max-width: 500px;
+    text-align: center;
+}
+
+
+.btn-submit__singup {
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background: #F79256;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    
+}
