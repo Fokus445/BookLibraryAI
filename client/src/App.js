@@ -10,25 +10,18 @@ import './App.css';
 
 import axios from "axios";
 
+import Cookies from 'js-cookie';
 
 
-
-export const setAuthToken = token => {
-  if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  }
-  else
-      delete axios.defaults.headers.common["Authorization"];
-}
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false); // State to track authentication status
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = Cookies.get();
+    console.log(token)
     if (token) {
       setLoggedIn(true); // If a token is present, set loggedIn to true
-      setAuthToken(token);
     }
   }, []);
 
