@@ -24,14 +24,11 @@ const signup = (email, first_name, last_name, password1, password2) => {
 
 const login = (email, password) => {
   return axios
-    .post(API_URL + "/api/v1/login/", {
+    .post(API_URL + "/login/", {
       email,
       password,
     })
     .then((response) => {
-      if (response.data.access) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
       return response.data;
     });
 };
@@ -39,7 +36,7 @@ const login = (email, password) => {
 
 const logout = () => {
   return axios
-  .post(API_URL + "/api/v1/logout/")
+  .post(API_URL + "/logout/")
   .then((response) => {
     return response.data;
   });

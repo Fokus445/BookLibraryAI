@@ -4,6 +4,8 @@ import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import "./signup.css"
 
+
+
 import axios from 'axios';
 
 export const setAuthToken = token => {
@@ -35,7 +37,7 @@ const Signup = () => {
           console.log(response.access)
           const token = response.access;
 
-          localStorage.setItem("token", token);
+
 
           setAuthToken(token);
 
