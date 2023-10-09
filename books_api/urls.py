@@ -34,6 +34,7 @@ urlpatterns = [
         name="password_reset_confirm",
     ),
     path("api/v1/", include("core_apps.recommender.urls")),
+    path("api/v1/profiles/", include("core_apps.profiles.urls")),
 ]
 
 
