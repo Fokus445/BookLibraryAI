@@ -45,16 +45,19 @@
 
 
 
-.library button {
+.library-button {
     background-color: #007bff; /* Change to your preferred button color */
     color: #fff; /* Text color */
     border: none;
-    padding: 10px 20px;
+    padding: 6px 15px;
     margin: 5px;
     cursor: pointer;
     border-radius: 5px;
     margin-bottom: 20px;
+    transition: all 0.5s;
+    margin-top: 2%;
 }
+
 
 .library button:disabled {
     background-color: #ccc; /* Disabled button color */
@@ -67,4 +70,94 @@
     margin: 0 10px;
     color: #333; /* Text color for the page number */
     margin-bottom: 20px;
+}
+
+.library form {
+  display: flex;
+  align-items: center; /* Vertically center the input and button */
+  justify-content: center;
+  margin-bottom: 3%;
+}
+
+.library input[type="text"] {
+  height: 45px; /* Set the desired height to match the search button */
+  width: 30vh;
+  padding: 5px; /* Add padding as needed */
+  font-size: 16px; /* Adjust font size as needed */
+  border: 1px solid #ccc; /* Add a border for better visibility */
+  border-radius: 5px; /* Add rounded corners for a nicer look */
+}
+
+.search-btn {
+  height: 45px; /* Set the same height as the input */
+  padding: 10px 20px; /* Add padding as needed */
+  font-size: 16px; /* Adjust font size as needed */
+  background-color: #007bff; /* Change to your preferred button color */
+  color: #fff; /* Text color */
+  border: none;
+  cursor: pointer;
+  border-radius: 5px; /* Add rounded corners for a nicer look */
+  margin-left: 5px;
+  transition: all 0.5s;
+}
+
+
+
+.library-button:hover {
+  background-color: #005fc4;
+  transform: scale(1.05); /* Corrected property name */
+}
+
+.search-btn:hover {
+  background-color: #005fc4;
+  transform: scale(1.05); /* Corrected property name */
+}
+
+
+.search-form {
+  display: flex;
+  align-items: center; /* Vertically center the input and button */
+  justify-content: center;
+  margin-bottom: 3%;
+}
+
+/* Adjust the input and button styles for the search bar */
+.search-form input[type="text"] {
+  height: 45px;
+  width: 30vh;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-btn {
+  height: 45px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 5px;
+  transition: all 0.5s;
+}
+
+/* Style the searched books to be displayed in a row */
+.searched-books {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+}
+
+.searched-books .book {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  margin: 10px;
+  max-width: 300px; /* Adjust the max-width as needed */
 }

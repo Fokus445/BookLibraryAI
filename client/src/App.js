@@ -10,19 +10,33 @@ import './App.css';
 
 import axios from "axios";
 
-import Cookies from 'js-cookie';
+const API_URL = "/api/v1";
+
+
 
 
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false); // State to track authentication status
+  const [loggedIn, setLoggedIn] = useState(false); 
 
   useEffect(() => {
-    const token = Cookies.get();
-    console.log(token)
-    if (token) {
-      setLoggedIn(true); // If a token is present, set loggedIn to true
-    }
+    axios.get(API_URL + "/profiles/me/")
+    .then((response) => {
+      if (response.status === 200) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false)
+      }
+      
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 401) {
+        setLoggedIn(false); 
+      } else {
+        console.error("Error:", error);
+      }
+    });
+
   }, []);
 
   return (

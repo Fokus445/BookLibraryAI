@@ -1,0 +1,42 @@
+/* popout.css */
+
+.popout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  color: #270;
+  background-color: #DFF2BF;
+  height: 50px; /* Set the desired height */
+  display: flex;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  padding: 40px; /* Add padding to content */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  transition: transform 0.6s ease-in-out;
+  transform: translateY(-100%);
+}
+
+.popout-content {
+  display: flex;
+  align-items: center; /* Center content vertically */
+  justify-content: center;
+  width: 80%; /* Set the desired width for the content */
+}
+
+.popout-content p {
+  color: #270;
+  margin: 0; /* Remove default margin to prevent spacing issues */
+}
+
+.popout.open {
+  transform: translateY(0);
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #444444; /* Button color */
+  font-size: 20px;
+  cursor: pointer;
+}

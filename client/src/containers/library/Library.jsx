@@ -41,26 +41,26 @@ const Library = () => {
 
     return (
         <div className='library'>
-            <form onSubmit={handleSearch}>
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchQuery}
-                    onChange={handleInputChange}
-                />
-                <button type="submit">Search</button>
-            </form>
-            <ul>
-                {searchResults.map((book, index) => (
-                    <li key={index} className='book'>
-                        <Link to={`/book/${book.isbn}`}>
-                            <img className="book__cover_image" src={book.cover_image} alt={`Cover for ${book.title}`} />
-                            <h2 className='book__title'>{book.title}</h2>
-                            <p className='book__author'>Author: {book.author_full_name}</p>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+        <form onSubmit={handleSearch} className="search-form">
+            <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={handleInputChange}
+            />
+            <button className="search-btn" type="submit">Search</button>
+        </form>
+        <div className="searched-books">
+            {searchResults.map((book, index) => (
+                <div key={index} className='book'>
+                    <Link to={`/book/${book.isbn}`}>
+                        <img className="book__cover_image" src={book.cover_image} alt={`Cover for ${book.title}`} />
+                        <h2 className='book__title'>{book.title}</h2>
+                        <p className='book__author'>Author: {book.author_full_name}</p>
+                    </Link>
+                </div>
+            ))}
+        </div>
             {/* Pagination controls */}
             <button
                 className="library-button"

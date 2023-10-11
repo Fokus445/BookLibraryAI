@@ -42,9 +42,9 @@ const Login = () => {
 
   return (
     <div>
-      <button onClick={onOpenModal}>Log In</button>
+      <button className="login-btn" onClick={onOpenModal}>Log In</button>
       {open && (<Modal open={open} onClose={onCloseModal} center>
-        <h2>Login</h2>
+        <h2 className="login-header">Login</h2>
 
         <form onSubmit={handleLogin}>
 
@@ -60,7 +60,7 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="btn-submit" type="submit">Log in</button>
+        <button className="login-submit" type="submit">Log in</button>
       </form>
       </Modal>)}
       
