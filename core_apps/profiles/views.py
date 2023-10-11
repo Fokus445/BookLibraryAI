@@ -42,15 +42,35 @@ class ProfileDetailAPIView(generics.RetrieveAPIView):
 
     def get_object(self):
         user = self.request.user
-        profile = self.get_queryset().get(user=user)
-        return profile
+        try:
+            profile = self.get_queryset().get(user=user)
+            return profile
+        except Profile.DoesNotExist:
+            raise NotFound("Profile does not exist for this user.")
+
+
+
+class CreateProfileAPIView(generics.CreateAPIView):
+    serializer_class = UpdateProfileSerializer
+    permission_classes = [IsAuthenticated]
+    renderer_classes = [ProfileJSONRenderer]
+
+    def create(self, request, *args, **kwargs):
+        if self.request.user.profile:
+            return Response({"message": "Profile already exists for this user."}, 
+                status=status.HTTP_400_BAD_REQUEST)
+        profile = Profile.objects.create(user=request.user)
+
+        serializer = self.get_serializer(profile, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_OK)
 
 
 class UpdateProfileAPIView(generics.RetrieveAPIView):
     serializer_class = UpdateProfileSerializer
     permission_classes = [IsAuthenticated]
-    parser_classes = [MultiPartParser]
-    renderer_classes = [ProfileJSONRenderer]
+    renderer_classes = [ProfileJSONRenderer,]
 
     def get_object(self):
         profile = self.request.user.profile
@@ -66,16 +86,16 @@ class UpdateProfileAPIView(generics.RetrieveAPIView):
 
 
 class SearchedBookListView(APIView):
-    def get(self, request, user_id, format=None):
+    def get(self, request, format=None):
         try:
-            profile = Profile.objects.get(user__id=user_id)
+            profile = Profile.objects.get(user=request.user)
             searched_books = profile.searched_books.all()
-            books = [book.pk for book in searched_books]
-            serializer = DisplayBooksSerializer(books, many=True)
+
+            serializer = DisplayBooksSerializer(searched_books, many=True)
             formatted_response = {
                 "status_code": status.HTTP_200_OK,
                 "following_count": searched_books.count(),
-                "books_i_searched": serializer.data,
+                "books_i_searched": reversed(serializer.data),
             }
             return Response(formatted_response, status=status.HTTP_200_OK)
         except Profile.DoesNotExist:

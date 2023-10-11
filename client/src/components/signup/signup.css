@@ -1,14 +1,35 @@
 
-.modal {
-    height: 50vh;
-    width: 10vw;
+
+.modal-form {
+    width: 400px;
 }
 
-.input-email {
+.input-email, .input-password {
     width: 100%;
     padding: 10px;
     margin: 10px 0 5px;
 }
+
+/* CSS for 50% width on the First Name and Last Name inputs */
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .input-container-half {
+    width: 49%;
+  }
+  
+  /* Add these styles to your existing CSS */
+  .input-firstname,
+  .input-lastname {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+
 
 .input-password {
     width: 100%;
@@ -20,10 +41,7 @@
     padding: 10px 40px;
 }
 
-.react-responsive-modal-modal {
-    max-width: 500px;
-    text-align: center;
-}
+
 
 
 .btn-submit__singup {
@@ -31,7 +49,7 @@
     color: #fff;
     background: #F79256;
     font-family: var(--font-family);
-    font-weight: 500;
+    font-weight: 400;
     font-size: 18px;
     line-height: 25px;
     border: none;
@@ -39,4 +57,25 @@
     cursor: pointer;
     border-radius: 5px;
     
+}
+
+.error-message {
+    color: #ff0000; 
+    font-size: 14px; 
+    margin-top: 5px; 
+    text-align: left; 
+    font-family: var(--font-family);
+    width: 100%;
+  }
+
+.error-center {
+    text-align: center;
+    margin-bottom: 15px;
+}
+  
+
+
+.signup-header {
+    font-family: var(--font-family);
+    font-weight: 500;
 }

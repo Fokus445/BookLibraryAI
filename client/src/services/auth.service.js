@@ -42,15 +42,11 @@ const logout = () => {
   });
 };
 
-const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
-};
 
 const authService = {
   signup,
   login,
   logout,
-  getCurrentUser,
 };
 
 export default authService;

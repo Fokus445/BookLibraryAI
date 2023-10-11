@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import './navbar.css';
-import { Login, Signup, Logout } from '../';
+import { Login, Signup, Logout, Popout} from '../';
 
 const Navbar = ({ loggedIn }) => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -21,12 +21,8 @@ const Navbar = ({ loggedIn }) => {
       </div>
       {!loggedIn ? (
         <div className="navbar-sign">
-          <div className="login-btn">
             <Login/>
-          </div>
-          <div className="signin-btn">
             <Signup/>
-          </div>
         </div>
       ) : (<div className="navbar-sign">
           <div className="signin-btn">
@@ -43,11 +39,10 @@ const Navbar = ({ loggedIn }) => {
         {toggleMenu && (
           <div className="navbar-menu_container scale-up-center">
             <div className="navbar-menu_container-links">
-              <p><a href="#home">Home</a></p>
-              <p><a href="#wgpt3">What is GPT3?</a></p>
-              <p><a href="#possibility">Open Yo AI</a></p>
-              <p><a href="#features">Case Studies</a></p>
-              <p><a href="#blog">Libraryyyy</a></p>
+              <p><a href="/">Home</a></p>
+              <p><a href="#">Library</a></p>
+              <p><a href="#">Features</a></p>
+              <p><a href="#">Blog</a></p>
             </div>
             {!loggedIn && (
               <div className="navbar-menu_container-links-sign">
