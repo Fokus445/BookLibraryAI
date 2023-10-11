@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated,  AllowAny
 from rest_framework.pagination import PageNumberPagination
 
 from .models import Book
+from core_apps.profiles.models import Profile
 from .serializers import RecommendBooksSerializer, DisplayBooksSerializer, BookDetailSerializer
 
 from django.core import serializers
@@ -73,5 +74,14 @@ class BookDetailView(generics.RetrieveAPIView):
     serializer_class = BookDetailSerializer
     lookup_field = 'isbn'
     permission_classes = [AllowAny]
+
+    def retrieve(self, request, *args, **kwargs):
+        book_to_add = self.get_object()
+
+        if request.user.is_authenticated:
+            user_profile = Profile.objects.get(user=request.user)
+            user_profile.add_searched_book(book_to_add)
+
+        return super().retrieve(request, *args, **kwargs)
 
 
