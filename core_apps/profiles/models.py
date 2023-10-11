@@ -1,10 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django_countries.fields import CountryField
-from django.core.validators import MinValueValidator
 
-from datetime import datetime
 
 
 
@@ -36,12 +33,12 @@ class Profile(TimeStampedModel):
     year_born = models.PositiveIntegerField(blank=True, null=True, 
         verbose_name=_("Birth Year"))
     searched_books = models.ManyToManyField(
-        "self", symmetrical=False, related_name="searched", blank=True
+        'recommender.Book', symmetrical=False, related_name="searched", blank=True
     ) 
 
     def __str__(self):
         return f"{self.user.first_name}'s Profile"
     
-    def add_searched_book(self, Book):
-        self.searched_books.add(Book)
+    def add_searched_book(self, book):
+        self.searched_books.add(book)
 
