@@ -17,8 +17,8 @@ from .renderers import ProfileJSONRenderer, ProfilesJSONRenderer
 from .serializers import ProfileSerializer, UpdateProfileSerializer
 
 
-from core_apps.recommender.models import Book
-from core_apps.recommender.serializers import DisplayBooksSerializer
+from core_apps.books.models import Book
+from core_apps.books.serializers import DisplayBooksSerializer
 
 
 User = get_user_model()
@@ -63,7 +63,7 @@ class CreateProfileAPIView(generics.CreateAPIView):
 
         serializer = self.get_serializer(profile, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        self.perform_create(serializer)
         return Response(serializer.data, status=status.HTTP_201_OK)
 
 

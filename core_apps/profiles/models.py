@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 from core_apps.common.models import TimeStampedModel
-from core_apps.recommender.models import Book
+from core_apps.books.models import Book
 
 User = get_user_model()
 
@@ -33,7 +33,7 @@ class Profile(TimeStampedModel):
     year_born = models.PositiveIntegerField(blank=True, null=True, 
         verbose_name=_("Birth Year"))
     searched_books = models.ManyToManyField(
-        'recommender.Book', symmetrical=False, related_name="searched", blank=True
+        'books.Book', symmetrical=False, related_name="searched", blank=True
     ) 
 
     def __str__(self):

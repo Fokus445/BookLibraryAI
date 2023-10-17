@@ -26,17 +26,21 @@
 }
 
 
-.btn-submit__singup {
+.logout-btn {
     padding: 0.5rem 1rem;
-    color: #fff;
-    background: #F79256;
-    font-family: var(--font-family);
     font-weight: 500;
-    font-size: 18px;
+    margin: 0 0.2rem;
+    background-color: #d3d1d1;
     line-height: 25px;
     border: none;
     outline: none;
     cursor: pointer;
     border-radius: 5px;
-    
+    color: var(--color-text);
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: rgb(173, 172, 172);
+    scale: 1.05;
 }
