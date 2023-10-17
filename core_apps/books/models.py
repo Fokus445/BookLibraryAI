@@ -3,11 +3,13 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+from core_apps.common.models import TimeStampedModel
+
 
 User = get_user_model()
 
 
-class Author(models.Model):
+class Author(TimeStampedModel):
     first_name = models.CharField(max_length=50, verbose_name=_("first name"))
     last_name = models.CharField(max_length=50, verbose_name=_("last name"))
 
@@ -21,7 +23,7 @@ class Author(models.Model):
         return f"{self.first_name} {self.last_name}"
     
 
-class Publisher(models.Model):
+class Publisher(TimeStampedModel):
     name = models.CharField(max_length=100)
 
     class Meta:
@@ -31,7 +33,7 @@ class Publisher(models.Model):
         return self.name
 
 
-class Book(models.Model):
+class Book(TimeStampedModel):
     isbn = models.CharField(max_length=17, unique=True, verbose_name="ISBN")
     title = models.CharField(verbose_name=_("book title"), max_length=200)
     description = models.CharField(verbose_name=_("description"), max_length=255, blank=True)

@@ -2,8 +2,10 @@ from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 
-class ProfilesConfig(AppConfig):
+class RatingsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "core_apps.profiles"
-    verbose_name = _("Profiles")
+    name = "core_apps.ratings"
+    verbose_name = _("Ratings")
+
+
 
