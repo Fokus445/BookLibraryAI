@@ -173,3 +173,41 @@
 
 
 
+/* Add these CSS styles to your CSS file or component */
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 3%;
+  }
+  
+  .user-icon {
+    /* Add any additional styles for the user avatar here */
+    margin-right: 4px; /* Example: Add some spacing between the icon and the name */
+    color: #fff;
+  }
+  
+  .user-name {
+    color: #fff;
+    font-size: 16px;
+  }
+  
+.profile-detail-btn {
+    padding: 0.5rem 1rem;
+    margin: 0 0.2rem;
+    color: #fff;
+    background: #007bff;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.profile-detail-btn:hover {
+    background-color: #007bff;
+    scale: 1.05;
+}

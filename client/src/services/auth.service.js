@@ -13,8 +13,6 @@ const signup = (email, first_name, last_name, password1, password2) => {
     })
     .then((response) => {
       if (response.status === 201) {
-        // Registration successful, send activation email
-        console.log(response)
         console.log("Registration successful. Activation email sent.");
       }
       return response.data;
