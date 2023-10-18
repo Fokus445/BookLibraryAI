@@ -4,9 +4,9 @@ from .models import Profile
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ["id", "uuid", "user", "gender"]
-    list_display_links = ["id", "uuid", "user"]
-    list_filter = ["id", "uuid"]
+    list_display = ["pkid", "id", "user", "gender"]
+    list_display_links = ["pkid", "id", "user"]
+    list_filter = ["pkid", "id"]
 
 
 admin.site.register(Profile, ProfileAdmin)
