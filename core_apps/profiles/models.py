@@ -33,7 +33,7 @@ class Profile(TimeStampedModel):
     year_born = models.PositiveIntegerField(blank=True, null=True, 
         verbose_name=_("Birth Year"))
     searched_books = models.ManyToManyField(
-        'books.Book', symmetrical=False, related_name="searched", blank=True
+        Book, symmetrical=False, related_name="searched", blank=True
     ) 
 
     def __str__(self):
