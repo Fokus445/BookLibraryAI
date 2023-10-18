@@ -6,6 +6,7 @@ from django.dispatch import receiver
 from books_api.settings.base import AUTH_USER_MODEL
 from core_apps.profiles.models import Profile
 
+
 logger = logging.getLogger(__name__)
 
 

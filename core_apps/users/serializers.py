@@ -11,8 +11,6 @@ User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     gender = serializers.CharField(source="profile.gender")
-    phone_number = PhoneNumberField(source="profile.phone_number")
-    profile_photo = serializers.ReadOnlyField(source="profile.profile_photo.url")
     country = CountryField(source="profile.country")
     city = serializers.CharField(source="profile.city")
 
@@ -24,8 +22,6 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "gender",
-            "phone_number",
-            "profile_photo",
             "country",
             "city",
         ]
