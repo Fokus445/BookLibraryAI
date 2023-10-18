@@ -9,10 +9,10 @@ SECRET_KEY = env(
 
 DEBUG = True
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:8080, http://localhost:3000"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8080", "http://localhost:3000", "https://localhost:8080"]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Add your React app's origin here
+    "http://localhost:3000", "http://localhost:8080", "https://localhost:8080"  # Add your React app's origin here
 ]
 
 ALLOWED_HOSTS = ['*']
