@@ -7,5 +7,7 @@ class RatingsConfig(AppConfig):
     name = "core_apps.ratings"
     verbose_name = _("Ratings")
 
+    def ready(self):
+        import core_apps.ratings.signals
 
 
