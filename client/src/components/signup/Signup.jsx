@@ -136,7 +136,7 @@ const Signup = () => {
               <div className="loading-animation">Loading...</div>
             ) : (
               <button className="btn-submit btn-submit__singup" type="submit">
-                {loading ? "Loading..." : "Sign up"}
+                Loading...
               </button>
             )}
           </form>

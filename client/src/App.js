@@ -26,7 +26,7 @@ const App = () => {
             <Library/>
             </>
             } />
-            <Route path="/book/:isbn" element={<BookDetails/>} />
+            <Route path="/books/:id" element={<BookDetails/>} />
             <Route path="/profiles/me/" element={<Profile/>} />
           </Routes>
 
