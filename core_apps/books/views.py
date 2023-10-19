@@ -72,7 +72,7 @@ class DisplayBooksView(generics.ListAPIView):
 class BookDetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookDetailSerializer
-    lookup_field = 'isbn'
+    lookup_field = 'id'
     permission_classes = [AllowAny]
 
     def retrieve(self, request, *args, **kwargs):

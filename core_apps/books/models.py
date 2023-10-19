@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+
 from core_apps.common.models import TimeStampedModel
 
 
@@ -34,7 +35,7 @@ class Publisher(TimeStampedModel):
 
 
 class Book(TimeStampedModel):
-    isbn = models.CharField(max_length=17, unique=True, verbose_name="ISBN")
+    isbn = models.CharField(max_length=17, unique=True, verbose_name="isbn")
     title = models.CharField(verbose_name=_("book title"), max_length=200)
     description = models.CharField(verbose_name=_("description"), max_length=255, blank=True)
     author = models.ForeignKey(Author, related_name="books",verbose_name=_("author"),
@@ -50,10 +51,14 @@ class Book(TimeStampedModel):
             MaxValueValidator(9999)
         ])
     cover_image = models.CharField(max_length=200)
+    average_rating=models.DecimalField(default=0, max_digits=3, decimal_places=1,
+        verbose_name=_("average rating"))
 
     class Meta:
         ordering = ["title"]
 
     def __str__(self):
         return self.title
+    
+
 

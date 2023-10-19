@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.db.models import Avg
+
 
 
 from core_apps.common.models import TimeStampedModel
@@ -36,7 +36,3 @@ class Rating(TimeStampedModel):
     def __str__(self):
         return f"{self.user.first_name} rated {self.book.title} as {self.get_rating_display()}"
     
-    def update_average_rating(self):
-        avg_rating = Rating.objects.filter(book=self.book).aggregate(Avg('rating'))['rating__avg']
-        self.book.average_rating = avg_rating
-        self.book.save()
