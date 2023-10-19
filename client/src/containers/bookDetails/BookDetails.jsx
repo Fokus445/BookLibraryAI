@@ -5,15 +5,15 @@ import { useParams, Link } from 'react-router-dom';
 import './bookDetails.css';
 
 const BookDetails = () => {
-    const { isbn } = useParams(); // Get the ISBN from the route parameters
+    const { id } = useParams(); // Get the ID from the route parameters
     const [bookDetails, setBookDetails] = useState(null);
     const [recommendedBooks, setRecommendedBooks] = useState([]);
 
     useEffect(() => {
         const fetchBookDetails = async () => {
             try {
-                // Fetch book details based on ISBN
-                const bookDetailsResponse = await axios.get(`/api/v1/books/${isbn}`);
+                // Fetch book details based on uuid
+                const bookDetailsResponse = await axios.get(`/api/v1/books/${id}`);
                 const bookDetailsData = bookDetailsResponse.data;
                 setBookDetails(bookDetailsData);
 
@@ -27,7 +27,7 @@ const BookDetails = () => {
         };
 
         fetchBookDetails();
-    }, [isbn]);
+    }, [id]);
 
     if (!bookDetails) {
         return <div>Loading...</div>; // You can replace this with a loading spinner or message
@@ -49,7 +49,7 @@ const BookDetails = () => {
                 <h2 className="medium-margin-top">Recommended Books</h2>
                 <div className="recommended-books-list">
                     {recommendedBooks.map((recommendedBook, index) => (
-                        <Link key={index} to={`/book/${recommendedBook.isbn}`} className="recommended-book">
+                        <Link key={index} to={`/books/${recommendedBook.id}`} className="recommended-book">
                             <img className="recommended-book__cover_image" src={recommendedBook.cover_image} alt={`Cover for ${recommendedBook.title}`} />
                             <p>{recommendedBook.title}</p>
                         </Link>

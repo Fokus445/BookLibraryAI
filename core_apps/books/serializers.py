@@ -14,6 +14,7 @@ class DisplayBooksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = [
+            'id',
             'isbn',
             'title',
             'author',
@@ -33,12 +34,14 @@ class BookDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = [
+            'id',
             'isbn',
             'title',
             'author',
             'publisher',
             'release_year',
             'cover_image',
+            'average_rating',
             'author_full_name',
             'publisher_name',
         ]

@@ -12,7 +12,10 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errors, setErrors] = useState({});
+
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false); // New loading state
 
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
@@ -25,19 +28,28 @@ const Login = () => {
       await AuthService.login(email, password).then(
         response => {
           console.log("Success login")
-          console.log(response.access)
+          setOpen(false)
+          clearForm();
 
-          window.location.href = "/"
         /*navigate("");
         window.location.reload();*/
         },
         (error) => {
-          console.log(error);
-        }
+          if (error.response && error.response.data) {
+            setErrors(error.response.data);
+          } 
+        } 
       );
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false); // Stop loading animation
     }
+  };
+
+  const clearForm = () => {
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -60,7 +72,11 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="login-submit" type="submit">Log in</button>
+        {loading ? (
+              <div className="loading-animation">Loading...</div>
+            ) : (
+              <button className="login-submit" type="submit">Log in</button>
+            )}
       </form>
       </Modal>)}
       
