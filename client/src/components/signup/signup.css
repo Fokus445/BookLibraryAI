@@ -79,3 +79,12 @@
     font-family: var(--font-family);
     font-weight: 500;
 }
+
+.singup-login-link {
+  margin-top: 15px;
+  font-family: var(--font-family);
+}
+
+.singup-login-link a {
+  color: #597194;
+}
