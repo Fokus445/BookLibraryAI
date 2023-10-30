@@ -12,7 +12,8 @@ import ProfileService from "../../services/profile.service";
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
-  const [profile, setProfile] = useState(false); 
+  const [profile, setProfile] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     ProfileService.me()
@@ -41,7 +42,8 @@ const Navbar = () => {
       </div>
       {!profile ? (
         <div className="navbar-sign">
-            <Login/>
+            <button className="login-btn" onClick={()=>console(true)}>Log In</button>
+            {showLogin && <Login/>}
             <Signup/>
         </div>
       ) : (<div className="navbar-sign">

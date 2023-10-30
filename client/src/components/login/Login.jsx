@@ -31,8 +31,7 @@ const Login = () => {
           setOpen(false)
           clearForm();
 
-        /*navigate("");
-        window.location.reload();*/
+          window.location.reload();
         },
         (error) => {
           if (error.response && error.response.data) {
@@ -54,7 +53,6 @@ const Login = () => {
 
   return (
     <div>
-      <button className="login-btn" onClick={onOpenModal}>Log In</button>
       {open && (<Modal open={open} onClose={onCloseModal} center>
         <h2 className="login-header">Login</h2>
 
