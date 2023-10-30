@@ -7,7 +7,8 @@ from .views import (
     ProfileListAPIView,
     UpdateProfileAPIView,
     CreateProfileAPIView,
-    SearchedBookListView
+    SearchedBookListView,
+    RatedBookListView,
 )
 
 urlpatterns = [
@@ -16,4 +17,5 @@ urlpatterns = [
     path("me/create/", CreateProfileAPIView.as_view(), name="my-profile"),
     path("me/update/", UpdateProfileAPIView.as_view(), name="update-profile"),
     path("me/searched_books/", SearchedBookListView.as_view(), name="searched_books"),
+   
 ]
