@@ -109,7 +109,7 @@
     flex-direction: column;
     
     text-align: end;
-    background: var(--color-footer);
+    background: var(--color-bg);
     padding: 2rem;
     position: absolute;
     right: 0;
@@ -195,7 +195,7 @@
     padding: 0.5rem 1rem;
     margin: 0 0.2rem;
     color: #fff;
-    background: #007bff;
+    background: var(--color-button);
     font-family: var(--font-family);
     font-weight: 500;
     font-size: 16px;
@@ -208,6 +208,6 @@
 }
 
 .profile-detail-btn:hover {
-    background-color: #007bff;
+    background-color: var(--color-button);
     scale: 1.05;
 }

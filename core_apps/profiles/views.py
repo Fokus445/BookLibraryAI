@@ -19,7 +19,7 @@ from .serializers import ProfileSerializer, UpdateProfileSerializer
 
 from core_apps.books.models import Book
 from core_apps.ratings.models import Rating
-from core_apps.books.serializers import DisplayBooksSerializer
+from core_apps.books.serializers import BookSerializer
 from core_apps.ratings.serializers import RatingSerializer
 
 
@@ -95,7 +95,7 @@ class SearchedBookListView(APIView):
             profile = Profile.objects.get(user=request.user)
             searched_books = profile.searched_books.all()
 
-            serializer = DisplayBooksSerializer(searched_books, many=True)
+            serializer = BookSerializer(searched_books, many=True)
             formatted_response = {
                 "status_code": status.HTTP_200_OK,
                 "following_count": searched_books.count(),
