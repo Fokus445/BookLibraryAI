@@ -18,7 +18,9 @@ from .serializers import ProfileSerializer, UpdateProfileSerializer
 
 
 from core_apps.books.models import Book
+from core_apps.ratings.models import Rating
 from core_apps.books.serializers import DisplayBooksSerializer
+from core_apps.ratings.serializers import RatingSerializer
 
 
 User = get_user_model()
@@ -86,6 +88,8 @@ class UpdateProfileAPIView(generics.RetrieveAPIView):
 
 
 class SearchedBookListView(APIView):
+    permission_classes = [IsAuthenticated]
+    
     def get(self, request, format=None):
         try:
             profile = Profile.objects.get(user=request.user)
@@ -96,6 +100,25 @@ class SearchedBookListView(APIView):
                 "status_code": status.HTTP_200_OK,
                 "following_count": searched_books.count(),
                 "books_i_searched": reversed(serializer.data),
+            }
+            return Response(formatted_response, status=status.HTTP_200_OK)
+        except Profile.DoesNotExist:
+            return Response(status=404)
+        
+
+class RatedBookListView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        try:
+            profile = Profile.objects.get(user=request.user)
+            rated_books = Rating.objects.filter(profile=profile)
+
+            serializer = RatingSerializer(rated_books, many=True)
+            formatted_response = {
+                "status_code": status.HTTP_200_OK,
+                "rating_count": rated_books.count(),
+                "books_i_rated": serializer.data,
             }
             return Response(formatted_response, status=status.HTTP_200_OK)
         except Profile.DoesNotExist:

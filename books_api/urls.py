@@ -33,7 +33,7 @@ urlpatterns = [
         PasswordResetConfirmView.as_view(),
         name="password_reset_confirm",
     ),
-    path("api/v1/", include("core_apps.books.urls")),
+    path("api/v1/books/", include("core_apps.books.urls")),
     path("api/v1/profiles/", include("core_apps.profiles.urls")),
     path("api/v1/ratings/", include("core_apps.ratings.urls")),
 ]

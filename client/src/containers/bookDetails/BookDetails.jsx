@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
+import RatingService from '../../services/rating.service';
 
 import './bookDetails.css';
+
+
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+
+
 
 const BookDetails = () => {
     const { id } = useParams(); // Get the ID from the route parameters
     const [bookDetails, setBookDetails] = useState(null);
     const [recommendedBooks, setRecommendedBooks] = useState([]);
+    const [rating, setRating] = useState(0)
+    const [needToLogIn, setNeedToLogIn] = useState(false)
 
     useEffect(() => {
         const fetchBookDetails = async () => {
@@ -29,6 +39,29 @@ const BookDetails = () => {
         fetchBookDetails();
     }, [id]);
 
+    useEffect(() => {
+        RatingService.check_rating(id).then(rating => {
+            console.log(rating)
+            if (rating) {
+                setRating(rating)
+            } else {
+                console.log("Rating not found")
+            }
+        })
+    }, [id])
+
+    const handleRateBook = (rating) => {
+        RatingService.rate_book(id, rating).then(response => {
+                if (response.status === 201) {
+                    setRating(rating)
+                } else {
+                    setNeedToLogIn(true)
+                }
+            })   
+    }
+
+    
+
     if (!bookDetails) {
         return <div>Loading...</div>; // You can replace this with a loading spinner or message
     }
@@ -43,6 +76,13 @@ const BookDetails = () => {
                     <p>ISBN: {bookDetails.isbn}</p>
                     <p>Publisher: {bookDetails.publisher_name}</p>
                     <p>Release Year: {bookDetails.release_year}</p>
+                    <h3>Average Rating: {bookDetails.average_rating}</h3>
+
+                    
+                    <Typography component="legend">Rating</Typography>
+                    <Rating name="customized-10" defaultValue={rating} max={10} onChange={(_,newRating)=>{
+                        handleRateBook(newRating);
+                    }} />
                 </div>
             </div>
             <div className="recommended-books">

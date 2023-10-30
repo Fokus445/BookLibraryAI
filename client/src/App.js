@@ -8,7 +8,7 @@ import { Navbar } from './components';
 
 import './App.css';
 
-
+import axios from 'axios';
 
 
 
