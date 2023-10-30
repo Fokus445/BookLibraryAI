@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
 from django.core import serializers
+from django.shortcuts import get_object_or_404
 
 from rest_framework import filters, generics, permissions, status
 from rest_framework.views import APIView
@@ -14,7 +15,7 @@ from rest_framework.pagination import PageNumberPagination
 
 from core_apps.profiles.models import Profile
 from .models import Book
-from .serializers import RecommendBooksSerializer, DisplayBooksSerializer, BookDetailSerializer
+from .serializers import BookRecommendSerializer, BookSerializer, BookDetailSerializer
 
 
 
@@ -24,8 +25,8 @@ book_pivot = joblib.load(model_filename)
 similarity_scores = cosine_similarity(book_pivot)
 
 
-class RecommendBooksView(APIView):
-    serializer_class = RecommendBooksSerializer
+class BookRecommendView(APIView):
+    serializer_class = BookRecommendSerializer
     permission_classes = [AllowAny]
 
     def recommend_books(self, book_title):
@@ -37,8 +38,8 @@ class RecommendBooksView(APIView):
         
         data = []
         for book in similar_items:
-            data.append(Book.objects.filter(title=book_pivot.index[book[0]]).first())
-
+            data.append(get_object_or_404(Book, title=book_pivot.index[book[0]]))
+        
         return data
     
     def check_if_book_exists(self, book_title):
@@ -46,7 +47,7 @@ class RecommendBooksView(APIView):
     
     def post(self, request, format=None):
         """Return recommended books based on liked book"""
-        serializer = RecommendBooksSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
             title = serializer.validated_data['title']
@@ -55,14 +56,14 @@ class RecommendBooksView(APIView):
             else:
                 return Response({'detail': "Book not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = DisplayBooksSerializer(recommended_books, many=True)
+        serializer = BookSerializer(recommended_books, many=True)
         return Response({'books': serializer.data}, status=status.HTTP_200_OK)
     
 
-class DisplayBooksView(generics.ListAPIView):
-    """Display all books by page"""
+class BookListView(generics.ListAPIView):
+    """Return all books by page"""
     queryset = Book.objects.all()
-    serializer_class = DisplayBooksSerializer
+    serializer_class = BookSerializer
     permission_classes = [AllowAny]
     pagination_class = PageNumberPagination
 
