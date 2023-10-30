@@ -3,9 +3,10 @@ import AuthService from "../../services/auth.service";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import "./signup.css";
-import { Popout } from '../';
+import { Popout, Login } from '../';
 
-const Signup = () => {
+
+const Signup = (props) => {
   const [email, setEmail] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
@@ -16,10 +17,15 @@ const Signup = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false); // New loading state
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
+
+  const [showLogin, setShowLogin] = useState(false);
 
   const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  const onCloseModal = () => {
+    setOpen(false);
+    props.onClose();
+  }
 
   const handleSignUpSuccess = () => {
     setShowSignUpSuccess(true);
@@ -61,16 +67,22 @@ const Signup = () => {
     }
   };
 
+  const handleShowLogin = () => {
+    if (!showLogin) {
+      setShowLogin(true)
+      setOpen(false)
+    } else {
+      setShowLogin(false)
+    }
+    
+  }
+
+
   return (
     <div>
       {showSignUpSuccess && (
         <Popout message="Registration successful. Activate your email." />
       )}
-
-      <button className="singup-btn" onClick={onOpenModal}>
-        Sign Up
-      </button>
-      {open && (
         <Modal open={open} onClose={onCloseModal} center className="modal">
           <h2 className="signup-header">Sign Up</h2>
           <form onSubmit={handleSignup} className="modal-form">
@@ -136,12 +148,18 @@ const Signup = () => {
               <div className="loading-animation">Loading...</div>
             ) : (
               <button className="btn-submit btn-submit__singup" type="submit">
-                Loading...
+                Sing Up
               </button>
             )}
+            <div className="singup-login-link">
+              <p>Already have an account?</p>
+              <a href="#" onClick={handleShowLogin}>Login</a>
+            </div>
           </form>
         </Modal>
-      )}
+        {showLogin && <Login onClose={handleShowLogin} />}
+
+      
     </div>
   );
 };

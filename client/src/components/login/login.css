@@ -17,23 +17,36 @@
 }
 
 .login-submit {
-    background-color: #007bff; /* Change to your preferred button color */
+    background-color: var(--color-button); 
     color: #fff; /* Text color */
     border: none;
-    padding: 10px 20px;
-    margin: 5px;
+    padding: 0.5rem 1rem;
+    font-weight: 400;
+    font-size: 18px;
     cursor: pointer;
+    line-height: 25px;
     border-radius: 5px;
-    margin-bottom: 20px;
+    outline: none;
     transition: all 0.5s;
 }
 
+
+
 .login-submit:hover {
-    background-color: #005fc4;
+    background-color: var(--color-button-hover);
     scale: 1.05;
 }
 
 .login-header {
     font-family: var(--font-family);
     font-weight: 500;
+}
+
+.signup-login-link {
+    margin-top: 15px;
+    font-family: var(--font-family);
+  }
+  
+.signup-login-link a {
+    color: #597194;
 }

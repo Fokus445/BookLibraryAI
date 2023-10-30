@@ -14,18 +14,33 @@ const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [profile, setProfile] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSingup] = useState(false);
 
   useEffect(() => {
     ProfileService.me()
       .then((response) => {
         setProfile(response); // Set the profile info
-        console.log(response)
       })
       .catch((error) => {
         console.error("Error:", error);
-        // Handle the error as needed, e.g., show an error message to the profile.
       });
   }, []);
+
+  const handleShowLogin = () => {
+    if (!showLogin) {
+      setShowLogin(true)
+    } else {
+      setShowLogin(false)
+    }
+  };
+
+  const handleShowSignup = () => {
+    if (!showSignup) {
+      setShowSingup(true)
+    } else {
+      setShowSingup(false)
+    }
+  };
 
   return (
     <div className="navbar">
@@ -42,9 +57,13 @@ const Navbar = () => {
       </div>
       {!profile ? (
         <div className="navbar-sign">
-            <button className="login-btn" onClick={()=>console(true)}>Log In</button>
-            {showLogin && <Login/>}
-            <Signup/>
+            <button className="login-btn" onClick={handleShowLogin}>Log In</button>
+            {showLogin && <Login onClose={handleShowLogin} />}
+            <button className="singup-btn" onClick={handleShowSignup}>
+            Sign Up
+          </button>
+          {showSignup && <Signup onClose={handleShowSignup} />}
+            
         </div>
       ) : (<div className="navbar-sign">
             <Link to={`/profiles/me/`} className="profile-detail-btn">
@@ -59,9 +78,9 @@ const Navbar = () => {
       }
       <div className="navbar-menu">
         {toggleMenu ? (
-          <RiCloseLine color="#fff" size={27} onClick={() => setToggleMenu(false)} />
+          <RiCloseLine color="var(--color-text)" size={27} onClick={() => setToggleMenu(false)} />
         ) : (
-          <RiMenu3Line color="#fff" size={27} onClick={() => setToggleMenu(true)} />
+          <RiMenu3Line color="var(--color-text)" size={27} onClick={() => setToggleMenu(true)} />
         )}
         {toggleMenu && (
           <div className="navbar-menu_container scale-up-center">
