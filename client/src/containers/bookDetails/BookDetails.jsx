@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import RatingService from '../../services/rating.service';
+import BookService from '../../services/book.service';
+import { Login } from '../../components';
 
 import './bookDetails.css';
 
@@ -15,52 +17,86 @@ import Typography from '@mui/material/Typography';
 const BookDetails = () => {
     const { id } = useParams(); // Get the ID from the route parameters
     const [bookDetails, setBookDetails] = useState(null);
-    const [recommendedBooks, setRecommendedBooks] = useState([]);
-    const [rating, setRating] = useState(0)
+    const [recommendedBooks, setRecommendedBooks] = useState(false);
+    const [rating, setRating] = useState(null)
+    const [ratingDetails, setRatingDetails] = useState(null)
     const [needToLogIn, setNeedToLogIn] = useState(false)
 
     useEffect(() => {
-        const fetchBookDetails = async () => {
-            try {
-                // Fetch book details based on uuid
-                const bookDetailsResponse = await axios.get(`/api/v1/books/${id}`);
-                const bookDetailsData = bookDetailsResponse.data;
-                setBookDetails(bookDetailsData);
-
-                // Fetch recommended books based on the current book
-                const recommendedBooksResponse = await axios.post('/api/v1/recommend/', { title: bookDetailsData.title });
-                const recommendedBooksData = recommendedBooksResponse.data;
-                setRecommendedBooks(recommendedBooksData.books);
-            } catch (error) {
-                console.error('Error fetching book details or recommended books:', error);
-            }
-        };
-
-        fetchBookDetails();
-    }, [id]);
-
-    useEffect(() => {
-        RatingService.check_rating(id).then(rating => {
-            console.log(rating)
-            if (rating) {
-                setRating(rating)
+        // First, fetch book details
+        BookService.details(id)
+          .then((data) => {
+            console.log(data);
+            setBookDetails(data);
+      
+            // Once you have the book details, fetch recommended books
+            return BookService.recommend(data.title);
+          })
+          .then((data) => {
+            setRecommendedBooks(data.books);
+          })
+          .catch((error) => {
+            console.error("An error occurred: ", error);
+          });
+      }, [id]);
+      
+    const check_rating = () => {
+        RatingService.check_rating(id).then(data => {
+            if (data.rating) {
+                setRating(data.rating)
+                setRatingDetails(data)
             } else {
+                setRating(null)
+                setRatingDetails(null)
                 console.log("Rating not found")
             }
         })
-    }, [id])
-
-    const handleRateBook = (rating) => {
-        RatingService.rate_book(id, rating).then(response => {
-                if (response.status === 201) {
-                    setRating(rating)
-                } else {
-                    setNeedToLogIn(true)
-                }
-            })   
+        console.log(rating)
     }
 
+
+    useEffect(() => {
+        check_rating();
+    }, [id])
+
+
+    const handleNeedToLogin = () => {
+        if (!needToLogIn) {
+            setNeedToLogIn(true)
+        } else {
+            setNeedToLogIn(false)
+        }
+    }
+
+    const handleRateBook = (newRating) => {
+        if (newRating==null && ratingDetails) {
+            handleRatingDelete()
+        } else {
+            RatingService.rate_book(id, newRating).then(data => {
+                if (data.rating) {
+                    check_rating()
+                } else if (data.response.status == 401) {
+                    handleNeedToLogin()
+                } else {
+                    console.log("Rate Book error" + data.response)
+                }
+            })   
+        }
+        }
+        
+
+
+    const handleRatingDelete = () => {
+        if (ratingDetails) {
+            RatingService.remove_rating(ratingDetails.id).then(()=> {
+                check_rating()
+            })
+        }
+        else console.log("No rating found to delete")
+    } 
+
     
+
 
     if (!bookDetails) {
         return <div>Loading...</div>; // You can replace this with a loading spinner or message
@@ -80,21 +116,38 @@ const BookDetails = () => {
 
                     
                     <Typography component="legend">Rating</Typography>
-                    <Rating name="customized-10" defaultValue={rating} max={10} onChange={(_,newRating)=>{
+                    {needToLogIn && <Login onClose={handleNeedToLogin}/>}
+                    <Rating name="customized-10" value={rating} max={10} onChange={(_,newRating)=>{
                         handleRateBook(newRating);
                     }} />
+                    {ratingDetails && 
+                    (<p className="login-btn" onClick={handleRatingDelete}>Delete Rating</p>)}
+                    
                 </div>
             </div>
             <div className="recommended-books">
                 <h2 className="medium-margin-top">Recommended Books</h2>
-                <div className="recommended-books-list">
+                {recommendedBooks ? (
+                recommendedBooks.length > 0 ? (
+                    <div className="recommended-books-list">
                     {recommendedBooks.map((recommendedBook, index) => (
                         <Link key={index} to={`/books/${recommendedBook.id}`} className="recommended-book">
-                            <img className="recommended-book__cover_image" src={recommendedBook.cover_image} alt={`Cover for ${recommendedBook.title}`} />
-                            <p>{recommendedBook.title}</p>
+                        <img
+                            className="recommended-book__cover_image"
+                            src={recommendedBook.cover_image}
+                            alt={`Cover for ${recommendedBook.title}`}
+                        />
+                        <p>{recommendedBook.title}</p>
                         </Link>
                     ))}
-                </div>
+                    </div>
+                ) : (
+                    <div>No recommended books available</div>
+                )
+                ) : (
+                <div>Loading...</div>
+                )}
+
             </div>
             <Link to="/" className="return-button">Return to Library</Link>
         </div>

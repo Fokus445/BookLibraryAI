@@ -1,7 +1,10 @@
 
-.modal {
-    height: 25vh;
-    width: 25vw;
+.react-responsive-modal-modal {
+    min-width: 500px;
+}
+
+.modal-form {
+    width: 400px;
 }
 
 .input-email {
