@@ -21,13 +21,12 @@ const ratings = () => {
       });
 };
 
-const rate_book = (book_uuid, rating) => {
+const rate_book = (book_id, rating) => {
   return axios
-    .post(API_URL + `/rate_book/${book_uuid}/`, {
+    .post(API_URL + `/rate_book/${book_id}/`, {
       rating
     })
     .then((response) => {
-      console.log(response)
       if (response.status === 201) {
         return response.data
       } 
@@ -44,9 +43,9 @@ const rate_book = (book_uuid, rating) => {
     });
 };
 
-const remove_rating = ( rating_uuid ) => {
+const remove_rating = ( rating_id ) => {
   return axios
-    .delete(API_URL + "/remove_rating/" + rating_uuid)
+    .delete(API_URL + "/remove_rating/" + rating_id + "/")
     .then((response) => {
       if (response.status === 200) {
         return response.data
@@ -55,9 +54,10 @@ const remove_rating = ( rating_uuid ) => {
     .catch((error) => {
       if (error.response.status === 401) {
         console.log("U must log in")
+        return error
       } else {
         console.error("Error:", error);
-        throw error;
+        return error
       }
     });
 };
@@ -66,15 +66,15 @@ const check_rating = ( book_id ) => {
   return axios.get(API_URL + `/check_rating/${book_id}/`)
   .then((response) => {
     if (response.status === 200){
-      return response.data.rating
+      return response.data
     }
-    else if (response.status === 404) {
-      return false
-    } 
     }).catch((error) => {
       if (error.response.status==401) {
         console.log("Check Rating Error")
         console.log(error)
+        return error
+      }
+      else if (error.response.status==404) {
         return error
       }
   })};
