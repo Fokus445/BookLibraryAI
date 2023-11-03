@@ -12,16 +12,19 @@ class RatingSerializer(serializers.ModelSerializer):
         model = Rating
         fields = ["id", "book_id", "rating", 'book_cover_image', 'book_title', 'book_author']
 
-    def save(self, **kwargs):
-        instance = super().save(**kwargs)
-
-        # Calculate average rating and trigger the signal
-        book = instance.book
+    
+    def calculate_avg_rating(self, book):
         avg_rating = Rating.objects.filter(book=book).aggregate(Avg('rating'))['rating__avg']
         book.average_rating = avg_rating
         book.save()
+    
 
+    def save(self, **kwargs):
+        instance = super().save(**kwargs)
+        self.calculate_avg_rating(instance.book)
         return instance
+    
+
 
 
 class RatingCheckSerializer(serializers.ModelSerializer):

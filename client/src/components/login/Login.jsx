@@ -71,7 +71,7 @@ const Login = (props) => {
       <Modal open={open} onClose={onCloseModal} center>
         <h2 className="login-header">Login</h2>
 
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} onclass="modal-form">
         {errors.email && (
           <div className="error-message">{errors.email}</div>
         )}
