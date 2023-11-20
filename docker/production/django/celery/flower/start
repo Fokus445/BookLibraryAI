@@ -23,4 +23,4 @@ exec celery \
     -A books_api.celery \
     -b "${CELERY_BROKER}" \
     flower \
-    --basic_auth="${CELERY_FLOWER_USER}:${CELERY_FLOWER_***REMOVED***}"
+    --basic_auth="${CELERY_FLOWER_USER}:${CELERY_FLOWER_PASSWORD}"

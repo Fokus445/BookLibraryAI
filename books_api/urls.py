@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib import ***REMOVED***
+from django.contrib import admin
 from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
@@ -14,7 +14,7 @@ schema_view = get_schema_view(
         title="Book Recommender API",
         default_version="v1",
         description="API endpoints for Book Recommender App",
-        contact=openapi.Contact(email="***REMOVED***"),
+        contact=openapi.Contact(email="edvin.karpovic@gmail.com"),
         license=openapi.License(name="MIT License"),
     ),
     public=True,
@@ -23,7 +23,7 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
-    path(settings.ADMIN_URL, ***REMOVED***.site.urls),
+    path(settings.ADMIN_URL, admin.site.urls),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0)),
     path("api/v1/auth/user/", CustomUserDetailsView.as_view(), name="user_details"),
     path("api/v1/auth/", include("dj_rest_auth.urls")),
@@ -39,8 +39,8 @@ urlpatterns = [
 ]
 
 
-***REMOVED***.site.site_header = "Book Recommender API Admin"
+admin.site.site_header = "Book Recommender API Admin"
 
-***REMOVED***.site.site_title = "Book Recommender API Admin Portal"
+admin.site.site_title = "Book Recommender API Admin Portal"
 
-***REMOVED***.site.index_title = "Welcome to Book Recommender API Portal"
+admin.site.index_title = "Welcome to Book Recommender API Portal"

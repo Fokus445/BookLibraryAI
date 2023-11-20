@@ -1,5 +1,5 @@
-from django.contrib import ***REMOVED***
-from django.contrib.auth.***REMOVED*** import UserAdmin as BaseUserAdmin
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
 from .forms import UserChangeForm, UserCreationForm
@@ -53,4 +53,4 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ["email", "first_name", "last_name"]
 
 
-***REMOVED***.site.register(User, UserAdmin)
+admin.site.register(User, UserAdmin)
