@@ -31,7 +31,7 @@ fi
 export PGHOST="${POSTGRES_HOST}"
 export PGPORT="${POSTGRES_PORT}"
 export PGUSER="${POSTGRES_USER}"
-export PG***REMOVED***="${POSTGRES_***REMOVED***}"
+export PGPASSWORD="${POSTGRES_PASSWORD}"
 export PGDATABASE="${POSTGRES_DB}"
 
 message_info "Dropping the database..."

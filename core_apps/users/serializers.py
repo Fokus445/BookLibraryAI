@@ -29,7 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super(UserSerializer, self).to_representation(instance)
         if instance.is_superuser:
-            representation["***REMOVED***"] = True
+            representation["admin"] = True
         return representation
 
 

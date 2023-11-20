@@ -1,11 +1,11 @@
-from django.contrib import ***REMOVED***
+from django.contrib import admin
 
 from .models import Book, Author, Publisher
 # Register your models here.
 
-class BookAdmin(***REMOVED***.ModelAdmin):
+class BookAdmin(admin.ModelAdmin):
     list_display = ["isbn","title","description"]
 
-***REMOVED***.site.register(Book)
-***REMOVED***.site.register(Author)
-***REMOVED***.site.register(Publisher)
+admin.site.register(Book)
+admin.site.register(Author)
+admin.site.register(Publisher)

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-"""Django's command-line utility for ***REMOVED***istrative tasks."""
+"""Django's command-line utility for administrative tasks."""
 import os
 import sys
 
 
 def main():
-    """Run ***REMOVED***istrative tasks."""
+    """Run administrative tasks."""
     # TODO: change in production
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "books_api.settings.local")
     try:

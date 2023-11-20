@@ -14,7 +14,7 @@ APP_DIR = ROOT_DIR / "core_apps"
 
 
 DJANGO_APPS = [
-    "django.contrib.***REMOVED***",
+    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -87,7 +87,7 @@ WSGI_APPLICATION = "books_api.wsgi.application"
 
 DATABASES = {"default": env.db("DATABASE_URL")}
 
-***REMOVED***_HASHERS = [
+PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
@@ -99,7 +99,7 @@ DATABASES = {"default": env.db("DATABASE_URL")}
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
-AUTH_***REMOVED***_VALIDATORS = [
+AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
