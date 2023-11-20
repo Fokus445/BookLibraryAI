@@ -14,7 +14,7 @@ schema_view = get_schema_view(
         title="Book Recommender API",
         default_version="v1",
         description="API endpoints for Book Recommender App",
-        contact=openapi.Contact(email="***REMOVED***"),
+        contact=openapi.Contact(email="edvin.karpovic@gmail.com"),
         license=openapi.License(name="MIT License"),
     ),
     public=True,
